@@ -2,6 +2,7 @@ package com.hua.recyclerhelper_core.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,26 +10,30 @@ import android.view.ViewGroup;
 import com.hua.recyclerhelper_core.adapter.BaseMultiItemRvAdapter;
 import com.hua.recyclerhelper_core.adapter.MyViewHolder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 对现有的recyclerView adapter进行装饰，使其能够添加头部和尾部布局。
+ * 除了把本类设置给RecyclerView之外，其他和Adapter有关的操作操作的都是
+ * 被装饰的adapter。
+ * <p>
  * 适用于增加需求的情况，如果是要设计新的adapter，可以直接继承{@link BaseMultiItemRvAdapter}
  * 然后把头部和尾部当成特殊的item即可
  *
  * @author hua
  * @date 2017/8/14
  */
-public class HeaderFootWrapAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HeaderFooterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private RecyclerView.Adapter mAdapter;
-
     private SparseArray<View> mHeadViews = new SparseArray<>();
     private SparseArray<View> mFootViews = new SparseArray<>();
-    private static final int REAL_ITEM_TYPE = 0;
     private static final int BASE_ITEM_TYPE_HEAD = 100;
     private static final int BASE_ITEM_TYPE_FOOT = 200;
 
-    public HeaderFootWrapAdapter(RecyclerView.Adapter mAdapter) {
-        this.mAdapter = mAdapter;
+    public HeaderFooterWrapper(RecyclerView.Adapter adapter) {
+        this.mAdapter = adapter;
     }
 
     @NonNull
@@ -53,8 +58,7 @@ public class HeaderFootWrapAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @SuppressWarnings("unchecked")
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-        if (position >= headerCount() &&
-                getItemCount() - position >= footerCount() + 1) {
+        if (!isHeaderPos(position) && !isFooterPos(position)) {
             final int realPos = position - headerCount();
             mAdapter.onBindViewHolder(holder, realPos);
         }
@@ -62,12 +66,20 @@ public class HeaderFootWrapAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemViewType(int position) {
-        if (position < headerCount()) {
+        if (isHeaderPos(position)) {
             return mHeadViews.keyAt(position);
-        } else if (getItemCount() - position < footerCount() + 1) {
+        } else if (isFooterPos(position)) {
             return mFootViews.keyAt(footerCount() - getItemCount() + position);
         }
         return mAdapter.getItemViewType(position - headerCount());
+    }
+
+    private boolean isFooterPos(int position) {
+        return getItemCount() - position < footerCount() + 1;
+    }
+
+    private boolean isHeaderPos(int position) {
+        return position < headerCount();
     }
 
     @Override

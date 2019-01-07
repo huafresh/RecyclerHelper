@@ -7,9 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.hua.recyclerhelper_core.adapter.BaseMultiItemRvAdapter;
 import com.hua.recyclerhelper_core.adapter.BaseSingleRvAdapter;
+import com.hua.recyclerhelper_core.adapter.HeaderFooterWrapper;
 import com.hua.recyclerhelper_core.adapter.MyViewHolder;
 import com.hua.recyclerhelper_core.decoration.GridDecoration;
 import com.hua.recyclerhelper_core.decoration.LinearDecoration;
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                         holder.setText(R.id.text, (String) data);
                     }
                 };
-                recyclerView.setAdapter(adapter);
+
                 adapter.setOnItemClickListener(new BaseMultiItemRvAdapter.OnItemClickListener<String>() {
                     @Override
                     public void onClick(View view, String data, int position) {
@@ -47,6 +49,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 recyclerView.addItemDecoration(new LinearDecoration().drawLastLine(false));
+
+                HeaderFooterWrapper wrapAdapter = new HeaderFooterWrapper(adapter);
+                TextView textView = new TextView(MainActivity.this);
+                textView.setText("i am header");
+                TextView textView2 = new TextView(MainActivity.this);
+                textView2.setText("i am footer");
+                wrapAdapter.addHeadView(textView);
+                wrapAdapter.addFootView(textView2);
+
+                recyclerView.setAdapter(wrapAdapter);
+
             }
         });
         findViewById(R.id.grid).setOnClickListener(new View.OnClickListener() {

@@ -8,7 +8,7 @@ import android.util.SparseArray;
  * @since 2018/8/26
  */
 @SuppressWarnings("ALL")
-class ItemViewDelegateManager {
+class ItemViewTypeManager {
 
     private SparseArray<IItemViewType> itemViewDelegates;
 

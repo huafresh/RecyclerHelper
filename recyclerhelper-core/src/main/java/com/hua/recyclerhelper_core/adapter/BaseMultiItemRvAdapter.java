@@ -32,11 +32,11 @@ public abstract class BaseMultiItemRvAdapter extends RecyclerView.Adapter<MyView
     private OnItemLongClickListener mOnItemLongClickListener;
     private OnTouchListener mOnTouchListener;
 
-    private ItemViewDelegateManager itemViewDelegateManager;
+    private ItemViewTypeManager itemViewDelegateManager;
 
     public BaseMultiItemRvAdapter(Context context) {
         this.mContext = context;
-        this.itemViewDelegateManager = new ItemViewDelegateManager();
+        this.itemViewDelegateManager = new ItemViewTypeManager();
     }
 
     /**
