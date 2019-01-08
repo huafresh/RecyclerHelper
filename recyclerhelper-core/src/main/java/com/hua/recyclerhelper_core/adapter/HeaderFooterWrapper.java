@@ -2,23 +2,16 @@ package com.hua.recyclerhelper_core.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.hua.recyclerhelper_core.adapter.BaseMultiItemRvAdapter;
-import com.hua.recyclerhelper_core.adapter.MyViewHolder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 对现有的recyclerView adapter进行装饰，使其能够添加头部和尾部布局。
  * 除了把本类设置给RecyclerView之外，其他和Adapter有关的操作操作的都是
  * 被装饰的adapter。
  * <p>
- * 适用于增加需求的情况，如果是要设计新的adapter，可以直接继承{@link BaseMultiItemRvAdapter}
+ * 适用于增加需求的情况，如果是要设计新的adapter，可以直接继承{@link BaseMultiTypeRvAdapter}
  * 然后把头部和尾部当成特殊的item即可
  *
  * @author hua
@@ -47,7 +40,7 @@ public class HeaderFooterWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
         RecyclerView.ViewHolder viewHolder = null;
         if (itemView != null) {
             parent.removeView(itemView);
-            viewHolder = new MyViewHolder(itemView);
+            viewHolder = new BaseViewHolder(itemView);
         } else {
             viewHolder = mAdapter.onCreateViewHolder(parent, viewType);
         }

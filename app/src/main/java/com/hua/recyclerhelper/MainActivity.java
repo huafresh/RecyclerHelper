@@ -9,10 +9,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.hua.recyclerhelper_core.adapter.BaseMultiItemRvAdapter;
+import com.hua.recyclerhelper_core.adapter.BaseMultiTypeRvAdapter;
 import com.hua.recyclerhelper_core.adapter.BaseSingleRvAdapter;
 import com.hua.recyclerhelper_core.adapter.HeaderFooterWrapper;
-import com.hua.recyclerhelper_core.adapter.MyViewHolder;
+import com.hua.recyclerhelper_core.adapter.BaseViewHolder;
 import com.hua.recyclerhelper_core.decoration.GridDecoration;
 import com.hua.recyclerhelper_core.decoration.LinearDecoration;
 
@@ -34,15 +34,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this,
                         RecyclerView.VERTICAL, false));
+
                 BaseSingleRvAdapter<String> adapter = new BaseSingleRvAdapter<String>(MainActivity.this,
                         testDataList(), R.layout.recycler_item) {
                     @Override
-                    protected void convert(MyViewHolder holder, String data, int position) {
+                    protected void convert(BaseViewHolder holder, String data, int position) {
                         holder.setText(R.id.text, (String) data);
                     }
                 };
 
-                adapter.setOnItemClickListener(new BaseMultiItemRvAdapter.OnItemClickListener<String>() {
+                adapter.setOnItemClickListener(new BaseMultiTypeRvAdapter.OnItemClickListener<String>() {
                     @Override
                     public void onClick(View view, String data, int position) {
                         Log.e("@@@hua", "click = " + data);
@@ -70,12 +71,12 @@ public class MainActivity extends AppCompatActivity {
                 BaseSingleRvAdapter<String> adapter = new BaseSingleRvAdapter<String>(MainActivity.this,
                         testDataList(), R.layout.recycler_item2) {
                     @Override
-                    protected void convert(MyViewHolder holder, String data, int position) {
+                    protected void convert(BaseViewHolder holder, String data, int position) {
                         holder.setText(R.id.text, (String) data);
                     }
                 };
                 recyclerView.setAdapter(adapter);
-                adapter.setOnItemClickListener(new BaseMultiItemRvAdapter.OnItemClickListener<String>() {
+                adapter.setOnItemClickListener(new BaseMultiTypeRvAdapter.OnItemClickListener<String>() {
                     @Override
                     public void onClick(View view, String data, int position) {
                         Log.e("@@@hua", "click = " + data);

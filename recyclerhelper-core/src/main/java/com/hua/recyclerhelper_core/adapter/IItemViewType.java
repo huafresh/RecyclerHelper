@@ -14,6 +14,6 @@ public interface IItemViewType<T> {
 
     boolean isForViewType(T data, int position);
 
-    void convert(MyViewHolder viewHolder, T data, int position);
+    void convert(BaseViewHolder viewHolder, T data, int position);
 
 }

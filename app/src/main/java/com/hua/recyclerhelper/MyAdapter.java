@@ -1,7 +1,8 @@
 package com.hua.recyclerhelper;
 
-import com.hua.recyclerhelper_core.adapter.BaseMultiTypeAdapter;
+import com.hua.recyclerhelper_core.adapter.BaseMultiTypeRvAdapter;
 import com.hua.recyclerhelper_core.adapter.BaseViewHolder;
+import com.hua.recyclerhelper_core.adapter.IItemViewType;
 
 /**
  * @author hua
@@ -9,13 +10,9 @@ import com.hua.recyclerhelper_core.adapter.BaseViewHolder;
  * @date 2019/1/8 10:52
  */
 
-public class MyAdapter extends BaseMultiTypeAdapter<String> {
-    public MyAdapter(int layoutId) {
-        super(layoutId);
-    }
+public class MyAdapter extends BaseMultiTypeRvAdapter {
 
-    @Override
-    protected void convert(BaseViewHolder holder, String data, int position) {
-
+    public MyAdapter(IItemViewType itemType) {
+        super(itemType);
     }
 }

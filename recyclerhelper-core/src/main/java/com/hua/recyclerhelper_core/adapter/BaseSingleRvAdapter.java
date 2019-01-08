@@ -12,7 +12,7 @@ import java.util.List;
  * @date 2017/6/16
  */
 
-public abstract class BaseSingleRvAdapter<T> extends BaseMultiItemRvAdapter {
+public abstract class BaseSingleRvAdapter<T> extends BaseMultiTypeRvAdapter {
 
     public BaseSingleRvAdapter(Context context, @LayoutRes int layoutId) {
         this(context, null, layoutId);
@@ -32,7 +32,7 @@ public abstract class BaseSingleRvAdapter<T> extends BaseMultiItemRvAdapter {
             }
 
             @Override
-            public void convert(MyViewHolder viewHolder, T data, int position) {
+            public void convert(BaseViewHolder viewHolder, T data, int position) {
                 BaseSingleRvAdapter.this.convert(viewHolder, data, position);
             }
         });
@@ -47,6 +47,6 @@ public abstract class BaseSingleRvAdapter<T> extends BaseMultiItemRvAdapter {
      * @param data     bean
      * @param position item位置
      */
-    protected abstract void convert(MyViewHolder holder, T data, int position);
+    protected abstract void convert(BaseViewHolder holder, T data, int position);
 
 }

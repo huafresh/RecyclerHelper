@@ -19,17 +19,17 @@ import android.widget.TextView;
  * @date 2017/6/16
  */
 
-public class MyViewHolder extends RecyclerView.ViewHolder {
+public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     private SparseArray<View> viewHashMap = new SparseArray<>();
 
-    public MyViewHolder(View itemView) {
+    public BaseViewHolder(View itemView) {
         super(itemView);
     }
 
-    public static MyViewHolder createViewHolder(Context context, int layoutId, ViewGroup parent) {
+    public static BaseViewHolder createViewHolder(Context context, int layoutId, ViewGroup parent) {
         View itemView = LayoutInflater.from(context).inflate(layoutId, parent, false);
-        return new MyViewHolder(itemView);
+        return new BaseViewHolder(itemView);
     }
 
     @SuppressWarnings("unchecked")
@@ -44,7 +44,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         return (T) view;
     }
 
-    public MyViewHolder setText(@IdRes int id, String text) {
+    public BaseViewHolder setText(@IdRes int id, String text) {
         TextView textView = getView(id);
         if (textView != null) {
             textView.setText(text);
@@ -52,7 +52,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public MyViewHolder setText(@IdRes int id, int text) {
+    public BaseViewHolder setText(@IdRes int id, int text) {
         TextView textView = getView(id);
         if (textView != null) {
             textView.setText(String.valueOf(text));
@@ -60,7 +60,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public MyViewHolder setTextColor(@IdRes int id, int color) {
+    public BaseViewHolder setTextColor(@IdRes int id, int color) {
         TextView textView = getView(id);
         if (textView != null) {
             textView.setTextColor(color);
@@ -68,7 +68,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public MyViewHolder setVisibility(@IdRes int id, int visible) {
+    public BaseViewHolder setVisibility(@IdRes int id, int visible) {
         View view = getView(id);
         if (view != null) {
             if (view.getVisibility() != visible) {
@@ -86,7 +86,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         return -1;
     }
 
-    public MyViewHolder setSwitchOnOff(@IdRes int id, boolean onOff) {
+    public BaseViewHolder setSwitchOnOff(@IdRes int id, boolean onOff) {
         SwitchCompat switchCompat = getView(id);
         if (switchCompat != null) {
             switchCompat.setSelected(onOff);
@@ -94,7 +94,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public MyViewHolder setSelected(@IdRes int id, boolean selected) {
+    public BaseViewHolder setSelected(@IdRes int id, boolean selected) {
         View view = getView(id);
         if (view != null) {
             view.setSelected(selected);
@@ -102,7 +102,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public MyViewHolder setImageResId(@IdRes int id, @DrawableRes int imgId) {
+    public BaseViewHolder setImageResId(@IdRes int id, @DrawableRes int imgId) {
         ImageView imageView = getView(id);
         if (imageView != null) {
             imageView.setImageResource(imgId);
@@ -110,7 +110,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public MyViewHolder setBackgroundColor(@IdRes int id, int color) {
+    public BaseViewHolder setBackgroundColor(@IdRes int id, int color) {
         final View view = getView(id);
         if (view != null) {
             view.setBackgroundColor(color);
@@ -118,7 +118,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public MyViewHolder setBackgroundRes(@IdRes int id, @DrawableRes int res) {
+    public BaseViewHolder setBackgroundRes(@IdRes int id, @DrawableRes int res) {
         final View view = getView(id);
         if (view != null) {
             view.setBackgroundResource(res);

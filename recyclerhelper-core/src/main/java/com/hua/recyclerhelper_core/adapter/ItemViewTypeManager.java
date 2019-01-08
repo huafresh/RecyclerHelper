@@ -10,21 +10,21 @@ import android.util.SparseArray;
 @SuppressWarnings("ALL")
 class ItemViewTypeManager {
 
-    private SparseArray<IItemViewType> itemViewDelegates;
+    private SparseArray<IItemViewType> itemViewTypes;
 
     void addItemViewDelegate(IItemViewType itemViewDelegate) {
-        if (itemViewDelegates == null) {
-            itemViewDelegates = new SparseArray<>();
+        if (itemViewTypes == null) {
+            itemViewTypes = new SparseArray<>();
         }
-        itemViewDelegates.put(itemViewDelegates.size() + 1, itemViewDelegate);
+        itemViewTypes.put(itemViewTypes.size() + 1, itemViewDelegate);
     }
 
     <T> int getItemViewType(T t, int position) {
-        if (itemViewDelegates != null) {
-            for (int i = 0; i < itemViewDelegates.size(); i++) {
-                IItemViewType itemViewDelegate = itemViewDelegates.valueAt(i);
+        if (itemViewTypes != null) {
+            for (int i = 0; i < itemViewTypes.size(); i++) {
+                IItemViewType itemViewDelegate = itemViewTypes.valueAt(i);
                 if (itemViewDelegate.isForViewType(t, position)) {
-                    return itemViewDelegates.keyAt(i);
+                    return itemViewTypes.keyAt(i);
                 }
             }
         }
@@ -32,16 +32,16 @@ class ItemViewTypeManager {
     }
 
     IItemViewType getItemViewDelegate(int viewType) {
-        if (itemViewDelegates != null) {
-            return itemViewDelegates.get(viewType);
+        if (itemViewTypes != null) {
+            return itemViewTypes.get(viewType);
         }
         return null;
     }
 
-    void convert(MyViewHolder holder, Object itemData, int position) {
-        if (itemViewDelegates != null) {
-            for (int i = 0; i < itemViewDelegates.size(); i++) {
-                IItemViewType itemViewDelegate = itemViewDelegates.valueAt(i);
+    void convert(BaseViewHolder holder, Object itemData, int position) {
+        if (itemViewTypes != null) {
+            for (int i = 0; i < itemViewTypes.size(); i++) {
+                IItemViewType itemViewDelegate = itemViewTypes.valueAt(i);
                 if (itemViewDelegate.isForViewType(itemData, position)) {
                     itemViewDelegate.convert(holder, itemData, position);
                 }
