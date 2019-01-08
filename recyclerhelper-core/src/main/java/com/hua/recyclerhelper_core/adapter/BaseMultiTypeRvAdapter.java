@@ -33,9 +33,8 @@ public abstract class BaseMultiTypeRvAdapter extends RecyclerView.Adapter<BaseVi
     private RecyclerView recyclerView;
     private ItemViewTypeManager itemViewTypeManager;
 
-    public BaseMultiTypeRvAdapter(IItemViewType itemType) {
+    public BaseMultiTypeRvAdapter() {
         this.itemViewTypeManager = new ItemViewTypeManager();
-        itemViewTypeManager.addItemViewDelegate(itemType);
         this.listenerInfo = new ListenerInfo();
     }
 

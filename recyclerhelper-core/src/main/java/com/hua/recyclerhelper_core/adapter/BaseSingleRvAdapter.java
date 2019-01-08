@@ -12,31 +12,26 @@ import java.util.List;
  * @date 2017/6/16
  */
 
+@SuppressWarnings("unchecked")
 public abstract class BaseSingleRvAdapter<T> extends BaseMultiTypeRvAdapter {
 
-    public BaseSingleRvAdapter(Context context, @LayoutRes int layoutId) {
-        this(context, null, layoutId);
+    public BaseSingleRvAdapter(@LayoutRes int layoutId) {
+        this(null, layoutId);
     }
 
-    public BaseSingleRvAdapter(Context context, List<T> dataList, @LayoutRes final int layoutId) {
-        super(context);
-        addItemViewType(new IItemViewType<T>() {
+    public BaseSingleRvAdapter(List<T> dataList, @LayoutRes final int layoutId) {
+        super();
+        addItemViewType(new BaseSingleItemType() {
             @Override
             public int layoutId() {
                 return layoutId;
             }
 
             @Override
-            public boolean isForViewType(T data, int position) {
-                return true;
-            }
-
-            @Override
-            public void convert(BaseViewHolder viewHolder, T data, int position) {
-                BaseSingleRvAdapter.this.convert(viewHolder, data, position);
+            public void convert(BaseViewHolder viewHolder, Object data, int position) {
+                BaseSingleRvAdapter.this.convert(viewHolder, (T) data, position);
             }
         });
-
         setDataList(dataList);
     }
 
