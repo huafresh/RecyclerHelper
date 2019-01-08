@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * recyclerView decoration used by {@link GridLayoutManager}
+ * recyclerView decoration for {@link GridLayoutManager}
  *
  * @author hua
  * @version V1.0
