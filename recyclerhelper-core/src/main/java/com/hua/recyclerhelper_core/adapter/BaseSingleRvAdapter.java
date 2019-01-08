@@ -1,7 +1,8 @@
 package com.hua.recyclerhelper_core.adapter;
 
-import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
+import android.view.View;
 
 import java.util.List;
 
@@ -21,15 +22,15 @@ public abstract class BaseSingleRvAdapter<T> extends BaseMultiTypeRvAdapter {
 
     public BaseSingleRvAdapter(List<T> dataList, @LayoutRes final int layoutId) {
         super();
-        addItemViewType(new BaseSingleItemType() {
+        addItemViewType(new BaseSingleItemType<Object>() {
             @Override
             public int layoutId() {
                 return layoutId;
             }
 
             @Override
-            public void convert(BaseViewHolder viewHolder, Object data, int position) {
-                BaseSingleRvAdapter.this.convert(viewHolder, (T) data, position);
+            public void bind(BaseViewHolder viewHolder, Object data) {
+                BaseSingleRvAdapter.this.bind(viewHolder, (T) data);
             }
         });
         setDataList(dataList);
@@ -40,8 +41,7 @@ public abstract class BaseSingleRvAdapter<T> extends BaseMultiTypeRvAdapter {
      *
      * @param holder   itemView holder
      * @param data     bean
-     * @param position item位置
      */
-    protected abstract void convert(BaseViewHolder holder, T data, int position);
+    protected abstract void bind(BaseViewHolder holder, T data);
 
 }

@@ -2,9 +2,9 @@ package com.hua.recyclerhelper_core.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +32,7 @@ public abstract class BaseMultiTypeRvAdapter extends RecyclerView.Adapter<BaseVi
     private ListenerInfo listenerInfo;
     private RecyclerView recyclerView;
     private ItemViewTypeManager itemViewTypeManager;
+    private List<HeaderFooterItem> headerFooterItems;
 
     public BaseMultiTypeRvAdapter() {
         this.itemViewTypeManager = new ItemViewTypeManager();
@@ -58,10 +59,23 @@ public abstract class BaseMultiTypeRvAdapter extends RecyclerView.Adapter<BaseVi
         }
         mDataList.clear();
         mDataList.addAll(list);
+        appendHeaderFooterData();
+        notifyDataSetChanged();
     }
 
-    public void addItemViewType(IItemViewType<?> itemViewDelegate) {
-        itemViewTypeManager.addItemViewDelegate(itemViewDelegate);
+    private void appendHeaderFooterData() {
+        int realCount = mDataList.size();
+        for (HeaderFooterItem item : headerFooterItems) {
+            if (item.isHeader) {
+                mDataList.add(item.index, item.itemData);
+            } else {
+                mDataList.add(realCount + item.index + 1, item.itemData);
+            }
+        }
+    }
+
+    public void addItemViewType(IItemViewType<?, ? extends BaseViewHolder> itemViewType) {
+        itemViewTypeManager.addItemViewDelegate(itemViewType);
     }
 
     @Override
@@ -72,33 +86,33 @@ public abstract class BaseMultiTypeRvAdapter extends RecyclerView.Adapter<BaseVi
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        IItemViewType itemViewDelegate = itemViewTypeManager.getItemViewDelegate(viewType);
-        if (itemViewDelegate == null) {
+        IItemViewType itemViewType = itemViewTypeManager.getItemView(viewType);
+        if (itemViewType == null) {
             throw new IllegalArgumentException("please add at least one \"IItemViewType\"");
         }
-        BaseViewHolder viewHolder = BaseViewHolder.createViewHolder(
-                getContext(), itemViewDelegate.layoutId(), parent);
+
+        View itemView = itemViewType.getItemView();
+        if (itemView == null) {
+            itemView = LayoutInflater.from(getContext()).inflate(itemViewType.layoutId(), parent, false);
+        }
+
+        BaseViewHolder viewHolder = itemViewType.createViewHolder(parent, itemView);
         setListeners(viewHolder);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        itemViewTypeManager.convert(holder, getItemData(position), position);
+        itemViewTypeManager.bind(holder, getItemData(position), position);
     }
 
     @Override
     public int getItemCount() {
-        return mDataList != null ? mDataList.size() : 0;
+        int realCount = mDataList != null ? mDataList.size() : 0;
+        return realCount + headerCount() + footerCount();
     }
 
-    /**
-     * 获取item绑定的bean
-     *
-     * @param position 位置
-     * @return Object 绑定的bean
-     */
-    protected Object getItemData(int position) {
+    private Object getItemData(int position) {
         return mDataList != null ? mDataList.get(position) : null;
     }
 
@@ -109,7 +123,7 @@ public abstract class BaseMultiTypeRvAdapter extends RecyclerView.Adapter<BaseVi
             public void onClick(View v) {
                 if (listenerInfo.mOnItemClickListener != null) {
                     int pos = viewHolder.getLayoutPosition();
-                    listenerInfo.mOnItemClickListener.onClick(v, getItemData(pos), pos);
+                    listenerInfo.mOnItemClickListener.onClick(viewHolder, getItemData(pos));
                 }
             }
         });
@@ -119,19 +133,19 @@ public abstract class BaseMultiTypeRvAdapter extends RecyclerView.Adapter<BaseVi
             public boolean onLongClick(View v) {
                 if (listenerInfo.mOnItemLongClickListener != null) {
                     int pos = viewHolder.getLayoutPosition();
-                    listenerInfo.mOnItemLongClickListener.onLongClick(v, getItemData(pos), pos);
+                    listenerInfo.mOnItemLongClickListener.onLongClick(viewHolder, getItemData(pos));
                 }
                 return true;
             }
         });
 
-        itemView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return listenerInfo.mOnTouchListener != null &&
-                        listenerInfo.mOnTouchListener.onTouch(v, event, viewHolder.getLayoutPosition());
-            }
-        });
+//        itemView.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                return listenerInfo.mOnTouchListener != null &&
+//                        listenerInfo.mOnTouchListener.onTouch(v, event, viewHolder.getLayoutPosition());
+//            }
+//        });
     }
 
     public void setOnItemClickListener(OnItemClickListener<?> listener) {
@@ -142,13 +156,17 @@ public abstract class BaseMultiTypeRvAdapter extends RecyclerView.Adapter<BaseVi
         listenerInfo.mOnItemLongClickListener = listener;
     }
 
+    /**
+     * @deprecated unSupport now
+     */
+    @Deprecated
     public void setOnTouchListener(OnTouchListener listener) {
         listenerInfo.mOnTouchListener = listener;
     }
 
     protected Context getContext() {
         if (recyclerView == null) {
-            throw new IllegalStateException("adapter already detach from RecyclerView");
+            throw new IllegalStateException("adapter already detached from RecyclerView");
         }
         return recyclerView.getContext();
     }
@@ -162,4 +180,50 @@ public abstract class BaseMultiTypeRvAdapter extends RecyclerView.Adapter<BaseVi
     public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
         this.recyclerView = null;
     }
+
+    public int headerCount() {
+        int count = 0;
+        if (headerFooterItems != null) {
+            for (HeaderFooterItem item : headerFooterItems) {
+                if (item.isHeader) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    public int footerCount() {
+        int count = 0;
+        if (headerFooterItems != null) {
+            for (HeaderFooterItem item : headerFooterItems) {
+                if (!item.isHeader) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    public void addHeader(final View headerView) {
+        HeaderFooterItem item = new HeaderFooterItem(headerView, true, headerCount());
+        addItemViewType(item);
+        addHeaderFooterItem(item);
+    }
+
+    private void addHeaderFooterItem(HeaderFooterItem item) {
+        if (headerFooterItems == null) {
+            headerFooterItems = new ArrayList<>();
+        }
+        headerFooterItems.add(item);
+    }
+
+    public void addFooter(final View footer) {
+        HeaderFooterItem item = new HeaderFooterItem(footer, false, footerCount());
+        addItemViewType(item);
+        addHeaderFooterItem(item);
+    }
+
 }

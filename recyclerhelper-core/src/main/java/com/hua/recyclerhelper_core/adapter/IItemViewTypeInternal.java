@@ -1,5 +1,6 @@
 package com.hua.recyclerhelper_core.adapter;
 
+import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 
@@ -8,8 +9,8 @@ import android.view.View;
  * @version 1.0
  * @since 2018/8/26
  */
-interface IItemViewTypeInternal<T> extends IItemViewType<T> {
+interface IItemViewTypeInternal<T> extends IItemViewType<T, BaseViewHolder> {
 
-    View getView();
+    View getView(Context context);
 
 }

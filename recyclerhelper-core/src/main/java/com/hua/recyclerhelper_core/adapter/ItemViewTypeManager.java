@@ -31,19 +31,20 @@ class ItemViewTypeManager {
         return 0;
     }
 
-    IItemViewType getItemViewDelegate(int viewType) {
+    IItemViewType getItemView(int viewType) {
         if (itemViewTypes != null) {
             return itemViewTypes.get(viewType);
         }
         return null;
     }
 
-    void convert(BaseViewHolder holder, Object itemData, int position) {
+    void bind(BaseViewHolder holder, Object itemData, int position) {
         if (itemViewTypes != null) {
             for (int i = 0; i < itemViewTypes.size(); i++) {
                 IItemViewType itemViewDelegate = itemViewTypes.valueAt(i);
                 if (itemViewDelegate.isForViewType(itemData, position)) {
-                    itemViewDelegate.convert(holder, itemData, position);
+                    itemViewDelegate.bind(holder, itemData);
+                    break;
                 }
             }
         }

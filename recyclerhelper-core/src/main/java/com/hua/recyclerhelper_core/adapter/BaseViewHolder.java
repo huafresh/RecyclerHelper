@@ -27,11 +27,6 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
     }
 
-    public static BaseViewHolder createViewHolder(Context context, int layoutId, ViewGroup parent) {
-        View itemView = LayoutInflater.from(context).inflate(layoutId, parent, false);
-        return new BaseViewHolder(itemView);
-    }
-
     @SuppressWarnings("unchecked")
     public <T extends View> T getView(@IdRes int id) {
         View view = viewHashMap.get(id);
