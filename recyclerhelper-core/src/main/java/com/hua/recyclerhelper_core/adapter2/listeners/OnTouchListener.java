@@ -1,4 +1,4 @@
-package com.hua.recyclerhelper_core.adapter.listeners;
+package com.hua.recyclerhelper_core.adapter2.listeners;
 
 import android.view.MotionEvent;
 import android.view.View;

@@ -1,8 +1,7 @@
-package com.hua.recyclerhelper_core.adapter.listeners;
+package com.hua.recyclerhelper_core.adapter2.listeners;
 
-import android.view.View;
 
-import com.hua.recyclerhelper_core.adapter.BaseViewHolder;
+import com.hua.recyclerhelper_core.adapter2.BaseViewHolder;
 
 /**
  * @author hua

@@ -1,8 +1,13 @@
 package com.hua.recyclerhelper;
 
-import com.hua.recyclerhelper_core.adapter.BaseMultiTypeRvAdapter;
-import com.hua.recyclerhelper_core.adapter.BaseViewHolder;
-import com.hua.recyclerhelper_core.adapter.IItemViewType;
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.hua.recyclerhelper_core.adapter2.BaseViewHolder;
+import com.hua.recyclerhelper_core.adapter2.SingleRvAdapter;
+
 
 /**
  * @author hua
@@ -10,9 +15,15 @@ import com.hua.recyclerhelper_core.adapter.IItemViewType;
  * @date 2019/1/8 10:52
  */
 
-public class MyAdapter extends BaseMultiTypeRvAdapter {
+public class MyAdapter extends SingleRvAdapter<String>{
 
-    public MyAdapter(IItemViewType itemType) {
-        super(itemType);
+
+    public MyAdapter(Context context, int layoutId) {
+        super(context, layoutId);
+    }
+
+    @Override
+    protected void convert(BaseViewHolder holder, String data) {
+
     }
 }

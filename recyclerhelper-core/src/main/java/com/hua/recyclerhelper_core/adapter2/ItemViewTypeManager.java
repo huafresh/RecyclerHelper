@@ -1,6 +1,7 @@
-package com.hua.recyclerhelper_core.adapter;
+package com.hua.recyclerhelper_core.adapter2;
 
 import android.util.SparseArray;
+
 
 /**
  * @author hua
@@ -10,9 +11,9 @@ import android.util.SparseArray;
 @SuppressWarnings("ALL")
 class ItemViewTypeManager {
 
-    private SparseArray<IItemViewType> itemViewTypes;
+    private SparseArray<IRvItemType> itemViewTypes;
 
-    void addItemViewDelegate(IItemViewType itemViewDelegate) {
+    void addItemViewDelegate(IRvItemType itemViewDelegate) {
         if (itemViewTypes == null) {
             itemViewTypes = new SparseArray<>();
         }
@@ -22,7 +23,7 @@ class ItemViewTypeManager {
     <T> int getItemViewType(T t, int position) {
         if (itemViewTypes != null) {
             for (int i = 0; i < itemViewTypes.size(); i++) {
-                IItemViewType itemViewDelegate = itemViewTypes.valueAt(i);
+                IRvItemType itemViewDelegate = itemViewTypes.valueAt(i);
                 if (itemViewDelegate.isForViewType(t, position)) {
                     return itemViewTypes.keyAt(i);
                 }
@@ -31,7 +32,7 @@ class ItemViewTypeManager {
         return 0;
     }
 
-    IItemViewType getItemView(int viewType) {
+    IRvItemType getItemView(int viewType) {
         if (itemViewTypes != null) {
             return itemViewTypes.get(viewType);
         }
@@ -41,7 +42,7 @@ class ItemViewTypeManager {
     void bind(BaseViewHolder holder, Object itemData, int position) {
         if (itemViewTypes != null) {
             for (int i = 0; i < itemViewTypes.size(); i++) {
-                IItemViewType itemViewDelegate = itemViewTypes.valueAt(i);
+                IRvItemType itemViewDelegate = itemViewTypes.valueAt(i);
                 if (itemViewDelegate.isForViewType(itemData, position)) {
                     itemViewDelegate.bind(holder, itemData);
                     break;

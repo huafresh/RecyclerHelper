@@ -1,10 +1,11 @@
-package com.hua.recyclerhelper_core.adapter;
+package com.hua.recyclerhelper_core.adapter2;
+
 
 import android.view.View;
 
-import com.hua.recyclerhelper_core.adapter.listeners.OnItemClickListener;
-import com.hua.recyclerhelper_core.adapter.listeners.OnItemLongClickListener;
 import com.hua.recyclerhelper_core.adapter.listeners.OnTouchListener;
+import com.hua.recyclerhelper_core.adapter2.listeners.OnItemClickListener;
+import com.hua.recyclerhelper_core.adapter2.listeners.OnItemLongClickListener;
 
 /**
  * @author hua
@@ -12,6 +13,7 @@ import com.hua.recyclerhelper_core.adapter.listeners.OnTouchListener;
  * @date 2019/1/8 9:51
  */
 
+@SuppressWarnings("unchecked")
 class ListenerInfo {
     OnItemClickListener mOnItemClickListener;
     OnItemLongClickListener mOnItemLongClickListener;
