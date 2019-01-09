@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import com.hua.recyclerhelper_core.adapter2.listeners.OnItemClickListener;
 
+import java.util.List;
+
 /**
  * 扩展Adapter实现了添加头部和底部视图的功能。
  *
@@ -134,5 +136,11 @@ public class HeaderFooterAdapter<T> extends CommRvAdapter<T> {
             return null;
         }
         return adapter.getItemData(convertToRealPosition(position));
+    }
+
+    @Override
+    public CommRvAdapter<T> setDataList(List<T> list) {
+        adapter.setDataList(list);
+        return this;
     }
 }

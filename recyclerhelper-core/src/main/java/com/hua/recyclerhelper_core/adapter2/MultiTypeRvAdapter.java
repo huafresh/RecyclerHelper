@@ -68,7 +68,7 @@ public class MultiTypeRvAdapter<T> extends CommRvAdapter<T> {
     }
 
     @Override
-    public AbstractRvAdapter<BaseViewHolder, T> setBinder(IBindHolder<BaseViewHolder, T> bindHolder) {
+    public CommRvAdapter<T> setBinder(IBindHolder<BaseViewHolder, T> bindHolder) {
         if (this.getClass() == MultiTypeRvAdapter.class) {
             throw new IllegalStateException("多列表类型Adapter数据绑定由各个IRvItemType自行处理，因此不能调用setBinder()方法");
         } else {

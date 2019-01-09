@@ -3,9 +3,9 @@ package com.hua.recyclerhelper_core.adapter2;
 
 import android.view.View;
 
-import com.hua.recyclerhelper_core.adapter.listeners.OnTouchListener;
 import com.hua.recyclerhelper_core.adapter2.listeners.OnItemClickListener;
 import com.hua.recyclerhelper_core.adapter2.listeners.OnItemLongClickListener;
+import com.hua.recyclerhelper_core.adapter2.listeners.OnTouchListener;
 
 /**
  * @author hua

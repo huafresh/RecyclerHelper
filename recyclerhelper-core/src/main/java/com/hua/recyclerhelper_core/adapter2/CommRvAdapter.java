@@ -9,10 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hua.recyclerhelper_core.adapter2.listeners.OnItemClickListener;
+import com.hua.recyclerhelper_core.adapter2.listeners.OnItemLongClickListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 为支持链式构造Adapter引入的一层Adapter，不要直接使用。
+ *
  * @author hua
  * @version V1.0
  * @date 2019/1/9 8:59
@@ -53,25 +58,54 @@ public class CommRvAdapter<T> extends AbstractRvAdapter<BaseViewHolder, T> {
         return new MultiTypeRvAdapter(context);
     }
 
-//    public void bind(IBindHolder bindHolder) {
-//        this.bindHolder = bindHolder;
-//    }
-
-
-//    @Override
-//    public CommRvAdapter<T> setDataList(List<T> list) {
-//        super.setDataList(list);
-//        return this;
-//    }
-//
-//    @Override
-//    public CommRvAdapter<T> setBinder(IBindHolder<BaseViewHolder, T> bindHolder) {
-//        super.setBinder(bindHolder);
-//        return this;
-//    }
-
     @Override
     BaseViewHolder createHolder(@NonNull ViewGroup parent, int viewType) {
         throw new IllegalStateException("you must override this method");
+    }
+
+    public HeaderFooterAdapter<T> addHeader(View header) {
+        if (this instanceof HeaderFooterAdapter) {
+            ((HeaderFooterAdapter) this).addHeaderView(header);
+            return (HeaderFooterAdapter<T>) this;
+        } else {
+            HeaderFooterAdapter<T> adapter = new HeaderFooterAdapter<>(this);
+            adapter.addHeaderView(header);
+            return adapter;
+        }
+    }
+
+    public HeaderFooterAdapter<T> addFooter(View footer) {
+        if (this instanceof HeaderFooterAdapter) {
+            ((HeaderFooterAdapter) this).addFooterView(footer);
+            return (HeaderFooterAdapter<T>) this;
+        } else {
+            HeaderFooterAdapter<T> adapter = new HeaderFooterAdapter<>(this);
+            adapter.addFooterView(footer);
+            return adapter;
+        }
+    }
+
+    @Override
+    public CommRvAdapter<T> setDataList(List<T> list) {
+        super.setDataList(list);
+        return this;
+    }
+
+    @Override
+    public CommRvAdapter<T> setBinder(IBindHolder<BaseViewHolder, T> bindHolder) {
+        super.setBinder(bindHolder);
+        return this;
+    }
+
+    @Override
+    public CommRvAdapter<T> setOnItemClickListener(OnItemClickListener<T> listener) {
+        super.setOnItemClickListener(listener);
+        return this;
+    }
+
+    @Override
+    public CommRvAdapter<T> setOnItemLongClickListener(OnItemLongClickListener<T> listener) {
+        super.setOnItemLongClickListener(listener);
+        return this;
     }
 }

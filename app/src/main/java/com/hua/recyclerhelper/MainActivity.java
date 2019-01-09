@@ -9,9 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.hua.recyclerhelper_core.adapter.BaseMultiTypeRvAdapter;
-import com.hua.recyclerhelper_core.adapter.BaseSingleRvAdapter;
-import com.hua.recyclerhelper_core.adapter2.AbstractRvAdapter;
 import com.hua.recyclerhelper_core.adapter2.BaseViewHolder;
 import com.hua.recyclerhelper_core.adapter2.CommRvAdapter;
 import com.hua.recyclerhelper_core.adapter2.HeaderFooterAdapter;
@@ -48,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView textView3 = new TextView(MainActivity.this);
                 textView3.setText("i am second header");
 
-                AbstractRvAdapter<BaseViewHolder, String> adapter = CommRvAdapter.withModel(MainActivity.this, String.class)
+                recyclerView.setAdapter(CommRvAdapter.withModel(MainActivity.this, String.class)
                         .single(R.layout.recycler_item)
                         .setDataList(testDataList())
                         .setBinder(new IBindHolder<BaseViewHolder, String>() {
@@ -68,14 +65,9 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(BaseViewHolder holder, String data) {
                                 Log.e("@@@hua", "onclick = " + data);
                             }
-                        });
-
-
-                recyclerView.setAdapter(HeaderFooterAdapter.wrap(adapter)
-                        .addHeaderView(textView)
-                        .addHeaderView(textView3)
+                        })
+                        .addHeader(textView)
                         .addFooterView(textView2));
-
             }
         });
         findViewById(R.id.grid).setOnClickListener(new View.OnClickListener() {
@@ -92,22 +84,20 @@ public class MainActivity extends AppCompatActivity {
                 TextView textView3 = new TextView(MainActivity.this);
                 textView3.setText("i am second header");
 
-                AbstractRvAdapter<BaseViewHolder, Item> rvAdapter = CommRvAdapter.withModel(MainActivity.this, Item.class)
+                recyclerView.setAdapter(CommRvAdapter.withModel(MainActivity.this, Item.class)
                         .multiType()
                         .addRvItemType(new ItemType1())
                         .addRvItemType(new ItemType2())
+                        .addHeader(textView)
+                        .addHeaderView(textView3)
+                        .addFooterView(textView2)
                         .setDataList(testList2())
                         .setOnItemClickListener(new OnItemClickListener<Item>() {
                             @Override
                             public void onClick(BaseViewHolder holder, Item data) {
                                 Log.e("@@@hua", "item click = " + data);
                             }
-                        });
-
-                recyclerView.setAdapter(HeaderFooterAdapter.wrap(rvAdapter)
-                        .addHeaderView(textView)
-                        .addHeaderView(textView3)
-                        .addFooterView(textView2));
+                        }));
 
             }
         });

@@ -26,7 +26,7 @@ import java.util.List;
  */
 
 @SuppressWarnings("unchecked")
-public abstract class AbstractRvAdapter<VH extends BaseViewHolder, T> extends RecyclerView.Adapter<VH> {
+abstract class AbstractRvAdapter<VH extends BaseViewHolder, T> extends RecyclerView.Adapter<VH> {
     protected Context context;
     protected List<T> dataList;
     private IBindHolder<VH, T> bindHolder;
@@ -38,7 +38,7 @@ public abstract class AbstractRvAdapter<VH extends BaseViewHolder, T> extends Re
         this.listenerInfo = new ListenerInfo();
     }
 
-    public AbstractRvAdapter<VH, T> setDataList(List<T> list) {
+    AbstractRvAdapter<VH, T> setDataList(List<T> list) {
         if (list == null) {
             return this;
         }
@@ -56,7 +56,7 @@ public abstract class AbstractRvAdapter<VH extends BaseViewHolder, T> extends Re
         return dataList;
     }
 
-    public AbstractRvAdapter<VH, T> setBinder(IBindHolder<VH, T> bindHolder) {
+    AbstractRvAdapter<VH, T> setBinder(IBindHolder<VH, T> bindHolder) {
         this.bindHolder = bindHolder;
         return this;
     }
@@ -132,12 +132,12 @@ public abstract class AbstractRvAdapter<VH extends BaseViewHolder, T> extends Re
         this.recyclerView = null;
     }
 
-    public AbstractRvAdapter<VH, T> setOnItemClickListener(OnItemClickListener<T> listener) {
+    AbstractRvAdapter<VH, T> setOnItemClickListener(OnItemClickListener<T> listener) {
         listenerInfo.mOnItemClickListener = listener;
         return this;
     }
 
-    public AbstractRvAdapter<VH, T> setOnItemLongClickListener(OnItemLongClickListener<T> listener) {
+    AbstractRvAdapter<VH, T> setOnItemLongClickListener(OnItemLongClickListener<T> listener) {
         listenerInfo.mOnItemLongClickListener = listener;
         return this;
     }
