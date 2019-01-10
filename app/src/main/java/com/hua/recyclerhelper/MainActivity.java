@@ -109,13 +109,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 i = i++;
-                //adapter.append(new Item(0, "add" + i));
+                adapter.append(new Item(0, "add" + i));
             }
         });
         findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //adapter.delete(0);
+                adapter.remove(0);
             }
         });
     }

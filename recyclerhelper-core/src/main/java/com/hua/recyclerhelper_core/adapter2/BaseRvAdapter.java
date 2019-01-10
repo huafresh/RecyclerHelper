@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 
 import com.hua.recyclerhelper_core.adapter2.listeners.OnItemClickListener;
 import com.hua.recyclerhelper_core.adapter2.listeners.OnItemLongClickListener;
@@ -60,16 +61,20 @@ public class BaseRvAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     public final BaseRvAdapter<T> insert(int position, T data) {
         if (dataList != null) {
             dataList.add(position, data);
-            notifyItemChanged(position);
+            notifyItemInserted(position + headerCount());
         }
         return this;
+    }
+
+    private int headerCount() {
+        return headerFooterHelper.headerCount();
     }
 
     public final BaseRvAdapter<T> append(T data) {
         if (dataList != null) {
             int position = dataList.size();
             dataList.add(position, data);
-            notifyItemChanged(position);
+            notifyItemInserted(position + headerCount());
         }
         return this;
     }
@@ -78,7 +83,7 @@ public class BaseRvAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     public final BaseRvAdapter<T> remove(int position) {
         if (dataList != null) {
             dataList.remove(position);
-            notifyItemChanged(position);
+            notifyItemRemoved(position + headerCount());
         }
         return this;
     }
@@ -125,6 +130,11 @@ public class BaseRvAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
         View itemView = itemType.getItemView();
         if (itemView == null) {
             itemView = LayoutInflater.from(context).inflate(itemType.layoutId(), parent, false);
+        } else {
+            ViewGroup itemParent = (ViewGroup) itemView.getParent();
+            if (itemParent != null) {
+                itemParent.removeView(itemView);
+            }
         }
 
         BaseViewHolder holder = new BaseViewHolder(itemView);
@@ -153,7 +163,7 @@ public class BaseRvAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
                 headerFooterHelper.isFooterPos(position)) {
             return null;
         }
-        return dataList != null ? dataList.get(position - headerFooterHelper.headerCount()) : null;
+        return dataList != null ? dataList.get(position - headerCount()) : null;
     }
 
     @Override
@@ -161,7 +171,7 @@ public class BaseRvAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
         return getDataListCount() + headerFooterHelper.totalCount();
     }
 
-     int getDataListCount() {
+    int getDataListCount() {
         return dataList != null ? dataList.size() : 0;
     }
 
@@ -202,12 +212,12 @@ public class BaseRvAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     public BaseRvAdapter<T> addHeaderView(View header) {
-        headerFooterHelper.addHeaderView(header, headerFooterHelper.headerCount());
+        headerFooterHelper.addHeaderView(header, headerCount());
         return this;
     }
 
     public BaseRvAdapter<T> addFooterView(View footer) {
-        headerFooterHelper.addFooterView(footer, headerFooterHelper.headerCount() + getDataListCount());
+        headerFooterHelper.addFooterView(footer, headerCount() + getDataListCount());
         return this;
     }
 
