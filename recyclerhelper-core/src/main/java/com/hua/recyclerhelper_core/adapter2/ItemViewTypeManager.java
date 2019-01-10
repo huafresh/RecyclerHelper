@@ -32,6 +32,10 @@ class ItemViewTypeManager {
         return 0;
     }
 
+    int getItemViewType(IRvItemType itemType) {
+        return itemViewTypes.keyAt(itemViewTypes.indexOfValue(itemType));
+    }
+
     IRvItemType getItemView(int viewType) {
         if (itemViewTypes != null) {
             return itemViewTypes.get(viewType);

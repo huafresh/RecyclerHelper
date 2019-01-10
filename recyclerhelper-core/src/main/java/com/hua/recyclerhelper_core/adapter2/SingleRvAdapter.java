@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 @SuppressWarnings("unchecked")
-public abstract class SingleRvAdapter<T> extends MultiTypeRvAdapter<T> {
+public abstract class SingleRvAdapter<T> extends BaseRvAdapter<T> {
     private View itemView;
     private int layoutId = -1;
 
