@@ -37,7 +37,6 @@ public class BaseRvAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
         this.listenerInfo = new ListenerInfo();
         itemViewTypeManager = new ItemViewTypeManager();
         headerFooterHelper = new HeaderFooterHelper(this);
-        registerAdapterDataObserver(new HeaderFooterHelper.AdapterObserver(headerFooterHelper));
     }
 
     public final BaseRvAdapter<T> setDataList(List<T> list) {

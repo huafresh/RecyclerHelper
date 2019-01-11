@@ -98,8 +98,9 @@ public class MainActivity extends AppCompatActivity {
                         });
                 recyclerView.setAdapter(adapter);
 
-                DefaultItemAnimator animator = new DefaultItemAnimator();
-                animator.setAddDuration(2000);
+                MyItemAnimator animator = new MyItemAnimator();
+                animator.setAddDuration(10000);
+                animator.setRemoveDuration(3000);
                 recyclerView.setItemAnimator(animator);
 
             }

@@ -20,6 +20,7 @@ class HeaderFooterHelper {
 
     HeaderFooterHelper(BaseRvAdapter adapter) {
         this.adapter = adapter;
+        adapter.registerAdapterDataObserver(new HeaderFooterHelper.AdapterObserver(this));
     }
 
     void addHeaderView(View header, int position) {
