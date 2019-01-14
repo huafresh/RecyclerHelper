@@ -1,1 +1,1 @@
-include ':app', ':recyclerhelper-core'
+include ':app', ':rvhelper-core'
