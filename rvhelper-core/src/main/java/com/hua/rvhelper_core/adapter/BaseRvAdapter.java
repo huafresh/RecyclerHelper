@@ -25,7 +25,7 @@ import java.util.List;
 public class BaseRvAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     protected Context context;
     protected List<T> dataList;
-    private IBindHolder<T> bindHolder;
+    private IBindHolder<BaseViewHolder, T> bindHolder;
     protected RecyclerView recyclerView;
     protected ListenerInfo listenerInfo;
     private ItemViewTypeManager itemViewTypeManager;
@@ -53,7 +53,10 @@ public class BaseRvAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
     public final @Nullable
     List<T> getDataList() {
-        return Collections.unmodifiableList(dataList);
+        if (dataList != null) {
+            return Collections.unmodifiableList(dataList);
+        }
+        return null;
     }
 
     public final BaseRvAdapter<T> insert(int position, T data) {
@@ -87,7 +90,7 @@ public class BaseRvAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
 
-    public BaseRvAdapter<T> setBinder(IBindHolder<T> bindHolder) {
+    public BaseRvAdapter<T> setBinder(IBindHolder<BaseViewHolder, T> bindHolder) {
         this.bindHolder = bindHolder;
         return this;
     }

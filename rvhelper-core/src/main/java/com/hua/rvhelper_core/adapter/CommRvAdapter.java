@@ -16,7 +16,7 @@ import android.view.View;
 public final class CommRvAdapter<T> extends BaseRvAdapter<T> {
     private boolean isSingle = false;
 
-    CommRvAdapter(Context context) {
+    private CommRvAdapter(Context context) {
         super(context);
     }
 
