@@ -1,4 +1,4 @@
-package com.hua.rvhelper_core.adapter;
+package com.hua.rvhelper_core.adapter.lv;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;

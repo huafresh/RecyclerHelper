@@ -1,8 +1,9 @@
-package com.hua.rvhelper_core.adapter;
+package com.hua.rvhelper_core.adapter.lv;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
-import android.view.View;
+
+import com.hua.rvhelper_core.adapter.IBindHolder;
 
 import java.util.List;
 
