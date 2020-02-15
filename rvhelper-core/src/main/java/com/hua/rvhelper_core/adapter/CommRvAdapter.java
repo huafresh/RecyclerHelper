@@ -1,7 +1,7 @@
 package com.hua.rvhelper_core.adapter;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
+import androidx.annotation.LayoutRes;
 import android.view.View;
 
 /**
@@ -46,12 +46,12 @@ public final class CommRvAdapter<T> extends BaseRvAdapter<T> {
         };
     }
 
-    @Override
-    public BaseRvAdapter<T> setBinder(IBindHolder<T> bindHolder) {
-        if(!isSingle){
-            throw new RuntimeException("对于多类型列表，不同类型的绑定是由各自的\"IRvItemType\"实现的，因此不能设置\"IBindHolder\"");
-        }
-        return super.setBinder(bindHolder);
-    }
+//    @Override
+//    public BaseRvAdapter<T> setBinder(IBindHolder<T> bindHolder) {
+//        if(!isSingle){
+//            throw new RuntimeException("对于多类型列表，不同类型的绑定是由各自的\"IRvItemType\"实现的，因此不能设置\"IBindHolder\"");
+//        }
+//        return super.setBinder(bindHolder);
+//    }
 
 }

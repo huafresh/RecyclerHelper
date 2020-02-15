@@ -1,8 +1,8 @@
 package com.hua.rvhelper_core.adapter.lv;
 
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
-import android.support.v7.widget.SwitchCompat;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
+import androidx.appcompat.widget.SwitchCompat;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
