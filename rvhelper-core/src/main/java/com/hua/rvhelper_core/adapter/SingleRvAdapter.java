@@ -7,8 +7,8 @@ import android.view.View;
 
 /**
  * 使用方式：
- * 1、继承此类，重写{@link #convert(BaseViewHolder, Object)}做数据绑定；
- * 2、使用{@link CommRvAdapter#single(int)}方法构造实例，例如：
+ * 1、继承方式：继承此类，重写{@link #convert(BaseViewHolder, Object)}做数据绑定；
+ * 2、链式方式：使用{@link CommRvAdapter#single(int)}方法构造实例，例如：
  * <code>
  * CommRvAdapter.withModel(MainActivity.this, String.class)
  * .single(R.layout.recycler_item)
